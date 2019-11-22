@@ -1,0 +1,24 @@
+
+Opracowac zestaw programow typu producent-konsument realizujacych przy wykorzystaniu
+mechanizmu laczy komunikacyjnych (pipes) nastepujacy schcemat komunikacji miedzyprocesowej:
+Proces 1: 
+	czyta dane (pojedyncze wiersze) ze stdin lub pliku i przekazuje je w niezmienionej
+	postaci do procesu 2
+Proces 2:
+	pobiera dane przeslane przez procces 1, Oblicza ilosc znakow w kazdej linii i
+	wyznaczona liczbe przekazuje do procesu 3.
+Proces 3:
+	Pobiera dane wyprodukowane przez proces 2 i umieszcza je na stdout. Kazda odebrana
+	jednostka danych powinna zostac wyprowadzona w osobnym wierszu.
+
+Nalezy zaproponowac i zaimplementowac mechanizm informowania sie procesow o swoim stanie.
+Nalezy wykorzystac do tego dostepny mechanizm sygnalow i kolejek komunikatow. Scenariusz
+powiadamiana sie procesow o swoim stanie wyglada nastepujaco: do procesu2 wysylane sa
+sygnaly. Proces 2 przesyla otrzymany sygnal do procesu macierzystego. Proces macierzysty
+zapisuje wartosc sygnalu do kolejek komunikatow oraz wysyla powiadominie do procesu 1
+o odczytaniu zawarosci kolejki komunikatow. Proces 1 po odczytaniu sygnalu wysyla 
+powiadomienie do procesu 2 o odczytanie kolejki komunikatows. Proces 2 powiadamia proces 3
+o koniecznosci odczytu kolejki komunikatow. Wszystkie 3 procesy powinny byc powolywane
+automatycznie z jednego procesu inicjujacego.
+
+
